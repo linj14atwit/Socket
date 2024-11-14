@@ -18,13 +18,12 @@ function send(websocket){
 }
 
 function show_message(message){
-    console.log();
+    console.log("message");
 }
 
 function recieve(websocket){
     show_message("rec");
     websocket.addEventListener("message", (data) =>{
-        const data = data
         show_message(data);
     });
 }
