@@ -1,5 +1,6 @@
+var websocket = NaN;
 
-function send(websocket){
+function send(){
     var text = document.getElementById("textarea").value;
     console.log(text);
     document.getElementById("tdisplay").innerHTML = text;
@@ -10,18 +11,17 @@ function send(websocket){
     dis_text.appendChild(d);
     container.appendChild(dis_text);
 
-    document.getElementById("textarea").value = "";
+    document.getElementById("textarea").value = ""; 
 
-    
-    websocket.send(dis_text);
+    websocket.send(text);
     
 }
 
 function show_message(message){
-    console.log("message");
+    console.log(message);
 }
 
-function recieve(websocket){
+function recieve(){
     show_message("rec");
     websocket.addEventListener("message", (data) =>{
         show_message(data);
@@ -32,7 +32,7 @@ function recieve(websocket){
     
 // });
 function join(){
-    const websocket = new WebSocket("ws://localhost:8001/");
+    websocket = new WebSocket("ws://localhost:8001/");
 
     websocket.onopen = (event) => {
         websocket.send("connected");
@@ -41,6 +41,6 @@ function join(){
         console.log(event.data)
     }
 
-    recieve(websocket);
-    send(websocket);
+    // recieve(websocket);
+    // send(websocket);
 }
