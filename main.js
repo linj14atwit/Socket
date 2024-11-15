@@ -40,7 +40,7 @@ function join(){
     websocket.onmessage = (event) => {
         console.log(event.data)
     }
-
-    // recieve(websocket);
-    // send(websocket);
+    websocket.addEventListener("message", (data) =>{
+        show_message(data);
+    });
 }

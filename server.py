@@ -22,10 +22,13 @@ async def send(websocket):
 
 
 async def handler(websocket):
+    connected.add(websocket)
+    print(connected)
     async for message in websocket:
         # event = json.loads(message)
         print(message)
-        await websocket.send(message)
+        for user in connected:
+            await user.send(message)
     pass
 
 def recieve(websocket):
