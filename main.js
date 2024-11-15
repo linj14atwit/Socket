@@ -1,3 +1,5 @@
+// import {send_to_server} from "./chat.js";
+
 var websocket = NaN;
 
 function send(){
@@ -13,9 +15,21 @@ function send(){
 
     document.getElementById("textarea").value = ""; 
 
+    // websocket.send(text);
     websocket.send(text);
+    send_to_server(websocket, "p1", text);
     
 }
+
+
+function send_to_server(websocket, id, text){
+    if(websocket == NaN){
+        return;
+    }
+    const message = {user_id: id, action:"SEND", message_id: Date.now(), text: text};
+    websocket.send(JSON.stringify(message));
+}
+
 
 function show_message(message){
     console.log(message);
@@ -29,8 +43,9 @@ function recieve(){
 }
 
 // window.addEventListener("DOMContentLoaded", ()=>{
-    
+
 // });
+
 function join(){
     websocket = new WebSocket("ws://localhost:8001/");
 
@@ -44,3 +59,9 @@ function join(){
         show_message(data);
     });
 }
+
+window.addEventListener('load', () => {
+    // join();
+    // send();
+    // recieve();
+});
