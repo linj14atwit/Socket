@@ -1,6 +1,6 @@
 // import {send_to_server} from "./chat.js";
 
-// const websocket = new WebSocket(getWebSocketServer());
+const websocket = new WebSocket(getWebSocketServer());
 var user_id = NaN;
 
 
