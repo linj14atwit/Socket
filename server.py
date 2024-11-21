@@ -26,7 +26,8 @@ async def handler(websocket):
     print(connected)
     async for message in websocket:
         # event = json.loads(message)
-        print(message)
+        event = eval(message)
+        print(event, type(event))
         for user in connected:
             await user.send(message)
     pass

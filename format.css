@@ -1,3 +1,25 @@
 textarea {
     resize: none;
 }
+
+.grid-container {
+    background-color: aqua;
+    display: inline-block;
+    width: 100%;
+}
+.actions {
+    background-color: gray;
+    display: flex;
+}
+.menu {
+    background-color: greenyellow;
+    display: flex;
+}
+.message-box {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: lightblue;
+    padding: 20px;
+    text-align: center;
+}

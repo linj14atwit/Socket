@@ -1,44 +1,52 @@
 // import {send_to_server} from "./chat.js";
 
 var websocket = NaN;
+var user_id = NaN;
+
 
 function send(){
     var text = document.getElementById("textarea").value;
-    console.log(text);
+    // console.log(text);
     document.getElementById("tdisplay").innerHTML = text;
 
-    const container = document.getElementById("display");
-    const dis_text = document.createElement("div");
-    const d = document.createTextNode(text);
-    dis_text.appendChild(d);
-    container.appendChild(dis_text);
+    // display(text);
 
     document.getElementById("textarea").value = ""; 
 
-    // websocket.send(text);
-    websocket.send(text);
-    send_to_server(websocket, "p1", text);
+    send_to_server(text);
     
 }
 
 
-function send_to_server(websocket, id, text){
+function send_to_server(text, id=user_id, action="SEND"){
     if(websocket == NaN){
+        console.log("socket undefined");
         return;
     }
-    const message = {user_id: id, action:"SEND", message_id: Date.now(), text: text};
+    const message = {user_name: id, action: action, message_id: Date.now(), text: text};
     websocket.send(JSON.stringify(message));
 }
 
-
-function show_message(message){
-    console.log(message);
+//creates the message element on the browser
+function display(text, user, id){
+    const container = document.getElementById("display");
+    const div_text = document.createElement("div");
+    div_text.id = id;
+    var str = user + ": " + text;
+    const d = document.createTextNode(str);
+    div_text.appendChild(d);
+    container.appendChild(div_text);
 }
 
+
+// function show_message(message){
+
+// }
+
 function recieve(){
-    show_message("rec");
+    console.log("rec");
     websocket.addEventListener("message", (data) =>{
-        show_message(data);
+        console.log(data);
     });
 }
 
@@ -47,16 +55,27 @@ function recieve(){
 // });
 
 function join(){
+    var id = document.getElementById("textarea").value;
+    if (id.length < 1) {
+        document.getElementById("textarea").value = "enter valid username"; 
+        return;
+    }
+    user_id = id;
     websocket = new WebSocket("ws://localhost:8001/");
 
     websocket.onopen = (event) => {
-        websocket.send("connected");
+        send_to_server("connected", user_id, action="join");
     };
     websocket.onmessage = (event) => {
-        console.log(event.data)
+        console.log(event.data);
+        let dict = JSON.parse(event.data);
+        console.log(typeof(dict));
+        console.log(dict);
+        display(dict["text"], dict["user_name"], dict["message_id"]);
+
     }
     websocket.addEventListener("message", (data) =>{
-        show_message(data);
+        console.log(data);
     });
 }
 
