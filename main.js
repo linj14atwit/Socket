@@ -1,6 +1,6 @@
 // import {send_to_server} from "./chat.js";
 
-const websocket = new WebSocket(getWebSocketServer());
+// const websocket = new WebSocket(getWebSocketServer());
 var user_id = NaN;
 
 
@@ -89,8 +89,12 @@ function getWebSocketServer() {
     }
   }
 
-window.addEventListener('load', () => {
+// window.addEventListener('load', () => {
     // join();
     // send();
     // recieve();
-});
+// });
+window.addEventListener("DOMContentLoaded", () => {
+    // Open the WebSocket connection and register event handlers.
+    const websocket = new WebSocket(getWebSocketServer());
+  });
