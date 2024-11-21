@@ -33,8 +33,8 @@ async def handler(websocket):
             await user.send(message)
     pass
 
-def recieve(websocket):
-    pass
+# def recieve(websocket):
+#     pass
 
 async def main():
         loop = asyncio.get_running_loop()
