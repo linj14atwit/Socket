@@ -4,7 +4,6 @@ import os
 import signal
 
 from websockets.asyncio.server import broadcast, serve
-from app import app
 
 connected = set()
 
@@ -15,12 +14,12 @@ async def login(websocket):
 
     pass
 
-async def logout(websocket):
+# async def logout(websocket):
 
-    pass
+#     pass
 
-async def send(websocket):
-    pass
+# async def send(websocket):
+#     pass
 
 
 async def handler(websocket):
