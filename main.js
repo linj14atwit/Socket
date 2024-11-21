@@ -1,6 +1,6 @@
 // import {send_to_server} from "./chat.js";
 
-var websocket = NaN;
+const websocket = new WebSocket(getWebSocketServer());
 var user_id = NaN;
 
 
@@ -61,7 +61,7 @@ function join(){
         return;
     }
     user_id = id;
-    websocket = new WebSocket("ws://localhost:8001/");
+    // websocket = new WebSocket("ws://localhost:8001/");
 
     websocket.onopen = (event) => {
         send_to_server("connected", user_id, action="join");
@@ -78,6 +78,16 @@ function join(){
         console.log(data);
     });
 }
+
+function getWebSocketServer() {
+    if (window.location.host === "python-websockets.github.io") {
+      return "wss://websockets-tutorial.herokuapp.com/";
+    } else if (window.location.host === "localhost:8000") {
+      return "ws://localhost:8001/";
+    } else {
+      throw new Error(`Unsupported host: ${window.location.host}`);
+    }
+  }
 
 window.addEventListener('load', () => {
     // join();
