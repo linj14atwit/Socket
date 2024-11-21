@@ -1,6 +1,7 @@
 // import {send_to_server} from "./chat.js";
 
-const websocket = new WebSocket(getWebSocketServer());
+// const websocket = new WebSocket(getWebSocketServer());
+var websocket = NaN;
 var user_id = NaN;
 
 
@@ -61,7 +62,7 @@ function join(){
         return;
     }
     user_id = id;
-    // websocket = new WebSocket("ws://localhost:8001/");
+    websocket = new WebSocket(getWebSocketServer());
 
     websocket.onopen = (event) => {
         send_to_server("connected", user_id, action="join");
@@ -94,7 +95,9 @@ function getWebSocketServer() {
     // send();
     // recieve();
 // });
-window.addEventListener("DOMContentLoaded", () => {
-    // Open the WebSocket connection and register event handlers.
-    const websocket = new WebSocket(getWebSocketServer());
-  });
+
+
+// window.addEventListener("DOMContentLoaded", () => {
+//     // Open the WebSocket connection and register event handlers.
+//     const websocket = new WebSocket(getWebSocketServer());
+//   });
