@@ -62,6 +62,7 @@ function join(){
         return;
     }
     user_id = id;
+    console.log("join");
     websocket = new WebSocket(getWebSocketServer());
 
     websocket.onopen = (event) => {
@@ -70,7 +71,6 @@ function join(){
     websocket.onmessage = (event) => {
         console.log(event.data);
         let dict = JSON.parse(event.data);
-        console.log(typeof(dict));
         console.log(dict);
         display(dict["text"], dict["user_name"], dict["message_id"]);
 

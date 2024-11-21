@@ -24,11 +24,11 @@ async def login(websocket):
 
 async def handler(websocket):
     connected.add(websocket)
-    print(connected)
+    # print(connected)
     async for message in websocket:
         # event = json.loads(message)
         event = eval(message)
-        print(event, type(event))
+        # print(event, type(event))
         for user in connected:
             await user.send(message)
     pass
