@@ -80,7 +80,7 @@ function join(){
 }
 
 function getWebSocketServer() {
-    if (window.location.host === "python-websockets.github.io") {
+    if (window.location.host === "linj14atwit.github.io") {
       return "wss://peaceful-harbor-39175-23737a204d74.herokuapp.com/";
     } else if (window.location.host === "localhost:8000") {
       return "ws://localhost:8001/";
