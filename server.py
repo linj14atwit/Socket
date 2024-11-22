@@ -17,10 +17,18 @@ async def login(websocket):
     pass
 
 def verify_name(websocket, event):
-    for value in connection.values():
-        if value["user_name"] == event["user_name"]:
-            message = {"user_name": "SYSTEM", "action": "deny", "message_id": int(time.time()*1000), "text": "username taken"};
+    for name in connection.values():
+        if name == event["user_name"]:
+            message = {
+                "user_name": "SYSTEM", "action": "DENY", 
+                "message_id": int(time.time()*1000), 
+                "text": "username taken"
+                }
+            
             websocket.send(message)
+            return False
+        connection[websocket] = event["user_name"]
+        return True
 
 async def handler(websocket):
     connected.add(websocket)
@@ -29,9 +37,9 @@ async def handler(websocket):
         # event = json.loads(message)
         event = eval(message)
         try:
-             if event["action"] == "JOIN":
-                verify_name(websocket, event)
-                          
+            if event["action"] == "JOIN":
+                if not verify_name(websocket, event):
+                    return 
         except KeyError:
              pass
         

@@ -73,15 +73,24 @@ function join(){
     }
     user_id = id;
     console.log("join");
+
+    if(websocket == NaN){
     websocket = new WebSocket(getWebSocketServer());
+    }
 
     websocket.onopen = (event) => {
         send_to_server("connected", user_id, action="JOIN");
     };
+
     websocket.onmessage = (event) => {
         console.log(event.data);
         let dict = JSON.parse(event.data);
         console.log(dict);
+        if (dict["action"]=="DENY"){
+            document.getElementById("textarea").value = "username taken";
+            document.getElementById("join").disabled = false;
+            user_id = NaN;
+        }
         display(dict["text"], dict["user_name"], dict["message_id"]);
 
     }
