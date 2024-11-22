@@ -74,10 +74,9 @@ function join(){
     user_id = id;
     console.log("join");
 
-    if(websocket == NaN){
     websocket = new WebSocket(getWebSocketServer());
     console.log("create new socket");
-    }
+
 
     websocket.onopen = (event) => {
         send_to_server("connected", user_id, action="JOIN");
