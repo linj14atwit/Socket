@@ -8,7 +8,7 @@ var user_id = NaN;
 function send(){
     var text = document.getElementById("textarea").value;
     // console.log(text);
-    document.getElementById("tdisplay").innerHTML = text;
+    // document.getElementById("tdisplay").innerHTML = text;
 
     // display(text);
 
