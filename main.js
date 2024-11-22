@@ -94,9 +94,9 @@ function join(){
         display(dict["text"], dict["user_name"], dict["message_id"]);
 
     }
-    websocket.addEventListener("message", (data) =>{
-        console.log(data);
-    });
+    // websocket.addEventListener("message", (data) =>{
+    //     console.log(data);
+    // });
 
     document.getElementById("join").disabled = true;
 }
