@@ -33,16 +33,26 @@ function display(text, user, id){
     const container = document.getElementById("display");
     const div_text = document.createElement("div");
     div_text.id = id;
+    // div_text.style.backgroundColor = 
     var str = user + ": " + text;
     const d = document.createTextNode(str);
     div_text.appendChild(d);
     container.appendChild(div_text);
 }
 
+function display_messages() {
+    document.getElementById("display").innerHTML = ""
+    for (let msg of messages) {
+        let container = document.getElementById("display");
+        let disp = document.createElement("div");
+        let d = document.createTextNode(`${msg.sender}: ${msg.message_text}`);
 
-// function show_message(message){
+        disp.className = "message";
+        disp.appendChild(d);
+        container.appendChild(disp);
+    }
+}
 
-// }
 
 function recieve(){
     console.log("rec");
@@ -66,7 +76,7 @@ function join(){
     websocket = new WebSocket(getWebSocketServer());
 
     websocket.onopen = (event) => {
-        send_to_server("connected", user_id, action="join");
+        send_to_server("connected", user_id, action="JOIN");
     };
     websocket.onmessage = (event) => {
         console.log(event.data);
@@ -78,6 +88,8 @@ function join(){
     websocket.addEventListener("message", (data) =>{
         console.log(data);
     });
+
+    document.getElementById("join").disabled = true;
 }
 
 function getWebSocketServer() {
