@@ -75,7 +75,6 @@ function join(){
     console.log("join");
 
     websocket = new WebSocket(getWebSocketServer());
-    console.log("create new socket");
 
 
     websocket.onopen = (event) => {

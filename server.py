@@ -31,6 +31,7 @@ def verify_name(websocket, event):
         return True
 
 async def handler(websocket):
+    verified = True
     connected.add(websocket)
     # print(connected)
     async for message in websocket:
@@ -39,13 +40,14 @@ async def handler(websocket):
         try:
             if event["action"] == "JOIN":
                 if not verify_name(websocket, event):
-                    return 
+                    verified = False 
         except KeyError:
              pass
         
         # print(event, type(event))
-        for user in connected:
-            await user.send(message)
+        if verified:
+            for user in connected:
+                await user.send(message)
     pass
 
 # def recieve(websocket):
