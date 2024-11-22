@@ -76,6 +76,7 @@ function join(){
 
     if(websocket == NaN){
     websocket = new WebSocket(getWebSocketServer());
+    console.log("create new socket");
     }
 
     websocket.onopen = (event) => {
