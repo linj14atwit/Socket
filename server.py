@@ -45,9 +45,8 @@ async def handler(websocket):
              pass
         
         # print(event, type(event))
-        if verified:
-            for user in connected:
-                await user.send(message)
+        for user in connected:
+            await user.send(message)
     pass
 
 # def recieve(websocket):
