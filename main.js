@@ -100,6 +100,10 @@ function join(){
     document.getElementById("join").disabled = true;
 }
 
+function disconnect(){
+    send_to_server("", user_id, "DICONNECT");
+}
+
 function getWebSocketServer() {
     if (window.location.host === "linj14atwit.github.io") {
       return "wss://peaceful-harbor-39175-23737a204d74.herokuapp.com/";
@@ -108,7 +112,12 @@ function getWebSocketServer() {
     } else {
       throw new Error(`Unsupported host: ${window.location.host}`);
     }
-  }
+}
+
+window.addEventListener('beforeunload', function (e) {
+    e.preventDefault();
+    disconnect();
+});
 
 // window.addEventListener('load', () => {
     // join();

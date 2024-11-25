@@ -37,10 +37,16 @@ async def handler(websocket):
     async for message in websocket:
         # event = json.loads(message)
         event = eval(message)
+
         try:
             if event["action"] == "JOIN":
                 if not verify_name(websocket, event):
                     verified = False 
+            elif event["action"] == "DISCONNECT":
+                if websocket in connection.keys():
+                    connection.pop(websocket)
+                    connected.remove(websocket)
+        
         except KeyError:
              pass
         
