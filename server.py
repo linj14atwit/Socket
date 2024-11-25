@@ -25,7 +25,7 @@ def verify_name(websocket, event):
                 "text": "username taken"
                 }
             
-            websocket.send(message)
+            # websocket.send(message)
             return False
         connection[websocket] = event["user_name"]
         return True
