@@ -26,6 +26,7 @@ function send_to_server(text, id=user_id, action="SEND"){
     }
 
     if (text.includes("!TO:")){
+        console.log(text.split(" "));
         target = text.split(" ")[0].subtring(4);
         action = "DIRECT_MESSAGE";
     }
@@ -108,7 +109,7 @@ function join(){
 }
 
 function disconnect(){
-    send_to_server("", user_id, "DICONNECT");
+    send_to_server("has disconnected", user_id, "DICONNECT");
 }
 
 function getWebSocketServer() {
