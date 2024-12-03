@@ -27,7 +27,7 @@ function send_to_server(text, id=user_id, action="SEND"){
 
     if (text.includes("!TO:")){
         console.log(text.split(" "));
-        target = text.split(" ")[0].subtring(4);
+        target = text.split(" ")[0].substring(4);
         action = "DIRECT_MESSAGE";
     }
 
