@@ -32,6 +32,7 @@ def verify_name(websocket, event):
 
 async def handler(websocket):
     verified = True
+    do_broadcast = True
     connected.add(websocket)
     # print(connected)
     async for message in websocket:
@@ -49,18 +50,21 @@ async def handler(websocket):
                     connected.remove(websocket) 
 
             if event["action"] == "DIRECT_MESSAGE":
+                do_broadcast = False
                 await websocket.send(message)
                 for socket, name in connection.items():
                     if event["target"] == name:
                         await socket.send(message)
                         return
+                continue
         
         except KeyError:
              pass
         
         # print(event, type(event))
-        for user in connected:
-            await user.send(message)
+        if do_broadcast:
+            for user in connected:
+                await user.send(message)
     pass
 
 # def recieve(websocket):
