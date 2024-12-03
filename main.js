@@ -19,11 +19,18 @@ function send(){
 
 
 function send_to_server(text, id=user_id, action="SEND"){
+    let target = "EVERYONE";
     if(websocket == NaN){
         console.log("socket undefined");
         return;
     }
-    const message = {user_name: id, action: action, message_id: Date.now(), text: text};
+
+    if (text.includes("!TO:")){
+        target = text.split(" ")[0].subtring(4);
+        action = "DIRECT_MESSAGE";
+    }
+
+    const message = {user_name: id, action: action, message_id: Date.now(), text: text, target: target};
     websocket.send(JSON.stringify(message));
 }
 

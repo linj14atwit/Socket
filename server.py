@@ -11,10 +11,10 @@ connection = dict()
 
 
 
-async def login(websocket):
-    connected.add(websocket)
+# async def login(websocket):
+#     connected.add(websocket)
 
-    pass
+#     pass
 
 def verify_name(websocket, event):
     for name in connection.values():
@@ -42,10 +42,18 @@ async def handler(websocket):
             if event["action"] == "JOIN":
                 if not verify_name(websocket, event):
                     verified = False 
+
             elif event["action"] == "DISCONNECT":
                 if websocket in connection.keys():
                     connection.pop(websocket)
-                    connected.remove(websocket)
+                    connected.remove(websocket) 
+
+            if event["action"] == "DIRECT_MESSAGE":
+                await websocket.send(message)
+                for socket, name in connection.items():
+                    if event["target"] == name:
+                        await socket.send(message)
+                        return
         
         except KeyError:
              pass
