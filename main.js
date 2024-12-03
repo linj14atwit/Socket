@@ -1,4 +1,4 @@
-//version 1.38
+//version 1.40
 
 var websocket = NaN;
 var user_id = NaN;
